@@ -1,0 +1,18 @@
+from bs4 import Beautifulsoup 
+import requests 
+import urllib3 
+import re
+
+urllib3.disable_warnings ()
+url = 'https ://omgtu.ru/ecab/persons/index.php?b=3'
+response = requests. get (url, verify=False)
+soup = BeautifulSoup (response. text, features: 'html.parser")
+surnames = soup. findAll ( name: 'a', href=re. compile ('^index.php\\?f='))
+full_names = []
+for surname in surnames:
+    name = surname. text.strip()
+    full_names.append (name)
+
+with open('surnames. txt', 'w') as file:
+    for names in full_names:
+        file.write (names + '\n')
